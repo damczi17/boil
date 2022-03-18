@@ -6,20 +6,21 @@ def evetsCreating(activities):
 
     events.append(event(1)) #tworze 1 zdarzenie
     for i in activities:
-        if(i.originEvent == 1):#sprawdzam czy czynnosc nie ma poprzednika, jesli tak to :
+        if(i == activities[0]):#Sytuacja tylko dla pierwszej aktywności inicjującej
             events[0].outgoingActions.append(i.name) #ustawiam czynnosc jako wychodzaca z 1 zdarzenia
             events.append(event(counter+1)) #tworze kolejne zdarzenie 
             events[counter].incomingActions.append(i.name) #ustawiam ze ta czynnosc wchodzi w utworzone zdarzenie
-            
             counter += 1 #zwiekszam licznik
+        elif(i.originEvent == 1 and i != activities[0]):
+            events[0].outgoingActions.append(i.name)
 
-        # elif(i.originEvent == 0 and len(i.predecessor) == 1):
-        #     for j in events:
-        #         if(j.incomingActions == i.predecessor):
-        #             events.append(event(counter+1))
-        #             events[counter-1].outgoingActions += i.name
-        #             events[counter].incomingActions += i.name
-        #             counter += 1
+        elif(i.originEvent == 0 and len(i.predecessors) == 1):
+            for j in events:
+                if(i.predecessors[0] in j.incomingActions):
+                    events.append(event(counter+1))
+                    j.outgoingActions.append(i.name)
+                    events[counter].incomingActions.append(i.name)
+                    counter += 1
         # elif(len(i.predecessor) > 1):
         #     x = i.predecessor.split(",")
         #     events.append(event(counter+1))
@@ -27,6 +28,9 @@ def evetsCreating(activities):
         #         events[counter-1].outgoingActions += k
         #         events[counter].incomingActions += k
             
-            #print(x)
         
+
+
     return events
+
+# Glowny problem powoduje tworzenie zdarzenia przy czynnosci c. Toworzymy nowe zdarzenie i z automatu przesuwają nam się ID zdarzen
