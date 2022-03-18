@@ -58,7 +58,6 @@ def main():
     for i in events:
         print(f'ID {i.ID} wchodzi: {i.incomingActions}  wychodzi: {i.outgoingActions}')
 
-
 if __name__ == "__main__":
     main()
 
