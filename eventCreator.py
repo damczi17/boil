@@ -1,5 +1,12 @@
 from event import event
 
+def checkPredecessors(action, events):
+    for i in events:
+        for j in action.predecessors:
+            if(j in i.incomingActions):
+                i.outgoingActions.append(action.name)
+            break
+
 def evetsCreating(activities):
     counter = 1 #licznik do ID zdarzen
     events = []
@@ -21,16 +28,11 @@ def evetsCreating(activities):
                     j.outgoingActions.append(i.name)
                     events[counter].incomingActions.append(i.name)
                     counter += 1
-        # elif(len(i.predecessor) > 1):
-        #     x = i.predecessor.split(",")
-        #     events.append(event(counter+1))
-        #     for k in x:
-        #         events[counter-1].outgoingActions += k
-        #         events[counter].incomingActions += k
+                
+        elif(len(i.predecessors) > 1):
+            checkPredecessors(i, events)
             
-        
-
-
+    
     return events
 
 # Glowny problem powoduje tworzenie zdarzenia przy czynnosci c. Toworzymy nowe zdarzenie i z automatu przesuwają nam się ID zdarzen
