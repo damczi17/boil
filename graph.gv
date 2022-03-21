@@ -1,0 +1,13 @@
+digraph G { 
+  1 -> 2 [label="A 3"]
+  2 -> 3 [label="B 4"]
+  2 -> 4 [label="C 6"]
+  3 -> 5 [label="D 7"]
+  5 -> 7 [label="E 1"]
+  4 -> 7 [label="F 2"]
+  4 -> 6 [label="G 3"]
+  6 -> 7 [label="H 4"]
+  7 -> 8 [label="I 1"]
+  8 -> 9 [label="J 2"]
+
+}
