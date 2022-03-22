@@ -24,6 +24,8 @@ def eventsCreator(activities):
         incoming = int(i.outgoing) - 1
         outgoing = int(i.incoming) - 1
         events[outgoing].predecessors.append(incoming+1)
+        events[incoming].successors.append(outgoing+1)
+
         events[incoming].outgoingActions.append(int(i.duration))
         events[outgoing].incomingActions.append(int(i.duration))
     return events
@@ -46,6 +48,26 @@ def t0jCounting(events):
             events[i].t0j = max(tmp)
         
 
+
+def t1jCounting(events):
+    events[len(events)-1].t1j = int(events[len(events)-1].t0j)
+    for i in range(len(events)-2,0,-1):
+        if(len(events[i].successors) == 1):
+            tmp = events[events[i].successors[0]-1].t1j - events[i].outgoingActions[0]
+            events[i].t1j = tmp
+        else:
+            tmp = []
+            for j in range(len(events[i].successors)):
+                tmp.append(events[events[i].successors[j]-1].t0j - events[i].outgoingActions[j])
+            events[i].t1j = min(tmp)
+
+
+def LjCounting(events):
+    for i in events:
+        i.Lj = i.t1j - i.t0j
+
+
+
 def main():
     activities = []
     activities.append(activity('A',3,'1-2'))
@@ -62,14 +84,23 @@ def main():
     #graphDraw(activities)
 
     events = eventsCreator(activities)
-    print(events)
-
+    t0jCounting(events)
+    t1jCounting(events)
+    LjCounting(events)
     print("\n")
 
-    t0jCounting(events)
     for i in events:
         print(f'ID: {i.ID} t0j: {i.t0j}')
 
+    print("\n")
+    
+    for i in events:
+        print(f'ID: {i.ID} t1j: {i.t1j}')
+
+    print("\n")
+    
+    for i in events:
+        print(f'ID: {i.ID} t1j: {i.Lj}')
 
 if __name__ == "__main__":
     main()
