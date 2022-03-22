@@ -14,6 +14,37 @@ def graphDraw(activities):
     os.system("dot -Tpng graph.gv -o graph.png")
     os.system("graph.png")
 
+def eventsCreator(activities):
+    events = []
+    numberOfEvents = activities[len(activities)-1].incoming
+    for i in range(int(numberOfEvents)):
+        events.append(event(i+1))
+    
+    for i in activities:
+        incoming = int(i.outgoing) - 1
+        outgoing = int(i.incoming) - 1
+        events[outgoing].predecessors.append(incoming+1)
+        events[incoming].outgoingActions.append(int(i.duration))
+        events[outgoing].incomingActions.append(int(i.duration))
+    return events
+
+
+def t0jCounting(events):
+    events[0].t0j = 0
+    events[0].t1j = 0
+    events[0].Lj = 0
+
+    for i in range(1,len(events)):
+        if(len(events[i].predecessors) == 1):
+            id = int(events[i].predecessors[0]-1)
+            events[i].t0j = int(events[id].t0j) + int(events[i].incomingActions[0])
+        else:
+            tmp = []
+            for j in range(len(events[i].predecessors)):
+                id2 = int(events[i].predecessors[j]-1)
+                tmp.append(int(events[id2].t0j) + int(events[i].incomingActions[j]))
+            events[i].t0j = max(tmp)
+        
 
 def main():
     activities = []
@@ -28,9 +59,17 @@ def main():
     activities.append(activity('I',1,'7-8'))
     activities.append(activity('J',2,'8-9'))
  
-    graphDraw(activities)
+    #graphDraw(activities)
 
-    
+    events = eventsCreator(activities)
+    print(events)
+
+    print("\n")
+
+    t0jCounting(events)
+    for i in events:
+        print(f'ID: {i.ID} t0j: {i.t0j}')
+
 
 if __name__ == "__main__":
     main()
