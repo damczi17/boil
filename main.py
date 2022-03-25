@@ -1,7 +1,6 @@
 from activity import activity
 from event import event
 import os
-#from eventCreator import evetsCreating
 
 def graphDraw(activities):
     f = open("graph.gv", "w")
@@ -16,17 +15,17 @@ def graphDraw(activities):
 
 def eventsCreator(activities):
     events = []
-    numberOfEvents = activities[len(activities)-1].incoming
-    for i in range(int(numberOfEvents)):
+    numberOfEvents = activities[len(activities)-1].incoming #zalozenie ze w podawanych przez uzytkownika aktywnosciach ostatnia aktywnosc wchodzi do ostatniego zdarzenia
+    for i in range(int(numberOfEvents)):#utworzenie listy zdarzen na podstawie przeslanych przez uzytkownika aktywnosci
         events.append(event(i+1))
     
     for i in activities:
-        incoming = int(i.outgoing) - 1
-        outgoing = int(i.incoming) - 1
-        events[outgoing].predecessors.append(incoming+1)
+        incoming = int(i.outgoing) - 1  #pobranie ID zdarzenia z ktorego wchodzi akrywnosc
+        outgoing = int(i.incoming) - 1  #pobranie ID zdarzenia do ktorego wchodzi akrywnosc
+        events[outgoing].predecessors.append(incoming+1)    #stworzenie list poprzednikow i nastepnikow dla zdarzen
         events[incoming].successors.append(outgoing+1)
 
-        events[incoming].outgoingActions.append(int(i.duration))
+        events[incoming].outgoingActions.append(int(i.duration))    #uzupelnienie list czasow trwania dla wchodzacych i wychodzacych aktywnosci dla zdarzen
         events[outgoing].incomingActions.append(int(i.duration))
     return events
 
@@ -38,11 +37,11 @@ def t0jCounting(events):
 
     for i in range(1,len(events)):
         if(len(events[i].predecessors) == 1):
-            id = int(events[i].predecessors[0]-1)
+            id = int(events[i].predecessors[0]-1)   #pobranie ID porzednika i obliczenie przy jego pomocy czasu t0j
             events[i].t0j = int(events[id].t0j) + int(events[i].incomingActions[0])
         else:
             tmp = []
-            for j in range(len(events[i].predecessors)):
+            for j in range(len(events[i].predecessors)):    #sytuacja gdy zdarzenie posiada więcej niz jednego poprzednika
                 id2 = int(events[i].predecessors[j]-1)
                 tmp.append(int(events[id2].t0j) + int(events[i].incomingActions[j]))
             events[i].t0j = max(tmp)
