@@ -8,3 +8,4 @@ class event:
         self.successors = []
         self.incomingActions = []  # akcje wchodzace do zdarzen
         self.outgoingActions = []  # akcje wychodzace ze zdarzen
+        self.cpm = 0
