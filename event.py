@@ -1,6 +1,6 @@
 class event:
     def __init__(self, ID):
-        self.ID = ID
+        self.ID = int(ID)
         self.t0j = 0
         self.t1j = 0
         self.Lj = 0

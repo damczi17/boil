@@ -14,14 +14,33 @@ def graphDraw(events):
         t0j = str(events[i].t0j)
         t1j = str(events[i].t1j)
         Lj = str(events[i].Lj)
-        f.write('struct' + id + '[shape=record,label="'+ id +'|{' + t0j + '|' + t1j + '}| ' + Lj + '"];\n')
+        f.write('struct' + id + '[shape=record,label="'+ id +'|{' + t0j + '|' + t1j + '}| ' + Lj +'"')
+        if(events[i].cpm == 1):
+            f.write(', color=crimson];')
+        else:
+            f.write('];\n')
         for j in range(len(events[i].successors)):
             f.write('struct' + id + ' -> struct' + str(events[i].successors[j]) + '[')
             if(events[i].outgoingActions[j].cpm == 1):
-                f.write('color=red, ')
+                f.write('color=green, ')
             f.write('label="' + str(events[i].outgoingActions[j].name) + ' ' + str(events[i].outgoingActions[j].duration) + '"];\n')
 
-    f.write("\n}")
+# node [shape=plaintext]
+#   subgraph cluster_01 { 
+#     label = "Legenda";
+#     Zdarzenie
+#     struct [shape=record,label="ID|{t0j|t1j}| Lj"]
+#     key [label=<<table border="0" cellpadding="1" cellspacing="0" cellborder="0">
+#       <tr><td align="right" port="i1">Aktywność</td></tr>
+#       <tr><td align="right" port="i2">Ścieżka CPM</td></tr>
+#       </table>>]
+#     key2 [label=<<table border="0" cellpadding="1" cellspacing="0" cellborder="0">
+#       <tr><td port="i1">&nbsp;</td></tr>
+#       <tr><td port="i2">&nbsp;</td></tr>
+#       </table>>]
+#     key:i1:e -> key2:i1:w 
+#     key:i2:e -> key2:i2:w [color=green]
+#     f.write('\nstruct [shape=record,label="ID|{t0j|t1j}|Lj"];\n}')
     f.close()
     os.system("dot -Tpng graph.gv -o graph.png")
     os.system("graph.png")
