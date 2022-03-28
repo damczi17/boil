@@ -13,5 +13,3 @@ struct6[shape=record,label="6|{12|12}| 0", color=crimson];struct6 -> struct7[col
 struct7[shape=record,label="7|{16|16}| 0", color=crimson];struct7 -> struct8[color=green, label="I 1"];
 struct8[shape=record,label="8|{17|17}| 0", color=crimson];struct8 -> struct9[color=green, label="J 2"];
 struct9[shape=record,label="9|{19|19}| 0", color=crimson];
-struct [shape=record,label="ID|{t0j|t1j}|Lj"];
-}
