@@ -41,6 +41,7 @@ def graphDraw(events):
 #     key:i1:e -> key2:i1:w 
 #     key:i2:e -> key2:i2:w [color=green]
 #     f.write('\nstruct [shape=record,label="ID|{t0j|t1j}|Lj"];\n}')
+    f.write('}\n')
     f.close()
     os.system("dot -Tpng graph.gv -o graph.png")
     os.system("graph.png")

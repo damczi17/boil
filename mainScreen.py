@@ -6,7 +6,7 @@ from tkinter.ttk import Frame, Button, Label, Style
 from activity import activity
 from event import event
 import os
-from graphDraw import graphDraw
+from cpm import cpmCalculate
 
 def new_window():
     top = Toplevel()
@@ -114,6 +114,8 @@ class Example(Frame):
                 # activities.append(activity('I',1,'7-8'))
                 # activities.append(activity('J',2,'8-9'))
             
-            graphDraw(activities)
+            cpmCalculate(activities)
+
+    
         else:
             print("Wrong input")
