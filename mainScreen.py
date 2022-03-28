@@ -8,21 +8,6 @@ from event import event
 import os
 from graphDraw import graphDraw
 
-def calculate():
-    activities = []
-    activities.append(activity('A',3,'1-2'))
-    activities.append(activity('B',4,'2-3'))
-    activities.append(activity('C',6,'2-4'))
-    activities.append(activity('D',7,'3-5'))
-    activities.append(activity('E',1,'5-7'))
-    activities.append(activity('F',2,'4-7'))
-    activities.append(activity('G',3,'4-6'))
-    activities.append(activity('H',4,'6-7'))
-    activities.append(activity('I',1,'7-8'))
-    activities.append(activity('J',2,'8-9'))
- 
-    graphDraw(activities)
-
 def new_window():
     top = Toplevel()
     top.title("Second window")
@@ -70,14 +55,14 @@ class Example(Frame):
         lbl3 = Label(self, text="Chronology")
         lbl3.grid(column=2,row=0, pady=4, padx=5)
 
-        area1 = Text(self)
-        area1.grid(row=1, column=0, columnspan=1, rowspan=4,padx=1, sticky=E+W+S+N)
+        self.area1 = Text(self)
+        self.area1.grid(row=1, column=0, columnspan=1, rowspan=4,padx=1, sticky=E+W+S+N)
 
-        area2 = Text(self)
-        area2.grid(row=1, column=1, columnspan=1, rowspan=4,padx=1, sticky=E+W+S+N)
+        self.area2 = Text(self)
+        self.area2.grid(row=1, column=1, columnspan=1, rowspan=4,padx=1, sticky=E+W+S+N)
 
-        area3 = Text(self)
-        area3.grid(row=1, column=2, columnspan=1, rowspan=4,padx=1, sticky=E+W+S+N)
+        self.area3 = Text(self)
+        self.area3.grid(row=1, column=2, columnspan=1, rowspan=4,padx=1, sticky=E+W+S+N)
 
         abtn = Button(self, text="Add")
         abtn.grid(row=1, column=5)
@@ -88,5 +73,47 @@ class Example(Frame):
         hbtn = Button(self, text="Help", command=new_window)
         hbtn.grid(row=5, column=0, padx=5)
 
-        obtn = Button(self, text="Calculate", command=calculate)
+        obtn = Button(self, text="Calculate", command=self.calculate)
         obtn.grid(row=5, column=5)
+
+    def retrieve_activites_names(self):
+        input = self.area1.get("1.0",'end-1c')
+        return input
+
+    def retrieve_activites_duration(self):
+        input = self.area2.get("1.0",'end-1c')
+        return input
+
+    def retrieve_activites_chronology(self):
+        input = self.area3.get("1.0",'end-1c')
+        return input
+
+    def calculate(self):
+
+        actNames = self.retrieve_activites_names().splitlines()
+        actDuration = self.retrieve_activites_duration().splitlines()
+        actChronology = self.retrieve_activites_chronology().splitlines()
+
+        print(actNames)
+        print(actDuration)
+        print(actChronology)
+
+        if len(actNames) == len(actDuration) == len(actChronology):
+            
+            activities = []
+            for i in range(len(actNames)):
+
+                activities.append(activity(actNames[i],actDuration[i],actChronology[i]))
+                # activities.append(activity('B',4,'2-3'))
+                # activities.append(activity('C',6,'2-4'))
+                # activities.append(activity('D',7,'3-5'))
+                # activities.append(activity('E',1,'5-7'))
+                # activities.append(activity('F',2,'4-7'))
+                # activities.append(activity('G',3,'4-6'))
+                # activities.append(activity('H',4,'6-7'))
+                # activities.append(activity('I',1,'7-8'))
+                # activities.append(activity('J',2,'8-9'))
+            
+            graphDraw(activities)
+        else:
+            print("Wrong input")
