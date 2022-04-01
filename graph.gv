@@ -1,15 +1,32 @@
 digraph G { 
 rankdir="LR";
-struct1[shape=record,label="1|{0|0}| 0", color=crimson];struct1 -> struct2[color=green, label="A 3"];
-struct2[shape=record,label="2|{3|3}| 0", color=crimson];struct2 -> struct3[label="B 4"];
+struct1[shape=record,label="1|{0|0}| 0", color=lightgreen];struct1 -> struct2[color=green, label="A 3"];
+struct2[shape=record,label="2|{3|3}| 0", color=lightgreen];struct2 -> struct3[label="B 4"];
 struct2 -> struct4[color=green, label="C 6"];
 struct3[shape=record,label="3|{7|8}| 1"];
 struct3 -> struct5[label="D 7"];
-struct4[shape=record,label="4|{9|9}| 0", color=crimson];struct4 -> struct7[label="F 2"];
+struct4[shape=record,label="4|{9|9}| 0", color=lightgreen];struct4 -> struct7[label="F 2"];
 struct4 -> struct6[color=green, label="G 3"];
 struct5[shape=record,label="5|{14|15}| 1"];
 struct5 -> struct7[label="E 1"];
-struct6[shape=record,label="6|{12|12}| 0", color=crimson];struct6 -> struct7[color=green, label="H 4"];
-struct7[shape=record,label="7|{16|16}| 0", color=crimson];struct7 -> struct8[color=green, label="I 1"];
-struct8[shape=record,label="8|{17|17}| 0", color=crimson];struct8 -> struct9[color=green, label="J 2"];
-struct9[shape=record,label="9|{19|19}| 0", color=crimson];
+struct6[shape=record,label="6|{12|12}| 0", color=lightgreen];struct6 -> struct7[color=green, label="H 4"];
+struct7[shape=record,label="7|{16|16}| 0", color=lightgreen];struct7 -> struct8[color=green, label="I 1"];
+struct8[shape=record,label="8|{17|17}| 0", color=lightgreen];struct8 -> struct9[color=green, label="J 2"];
+struct9[shape=record,label="9|{19|19}| 0", color=lightgreen];node [shape=plaintext]
+subgraph cluster_01 { 
+label = "Legenda";
+Zdarzenie
+struct [shape=record,label="ID|{t0j|t1j}| Lj"]
+key [label=<<table border="0" cellpadding="1" cellspacing="0" cellborder="0">
+<tr><td align="right" port="i1">Aktywnosc</td></tr>
+<tr><td align="right" port="i2">Sciezka CPM</td></tr>
+</table>>]key2 [label=<<table border="0" cellpadding="1" cellspacing="0" cellborder="0">
+<tr><td port="i1">&nbsp;</td></tr>
+<tr><td port="i2">&nbsp;</td></tr>
+</table>>]
+key:i1:e -> key2:i1:w
+key:i2:e -> key2:i2:w [color=green]
+
+struct [shape=record,label="ID|{t0j|t1j}|Lj"];
+}
+}

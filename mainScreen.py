@@ -5,8 +5,8 @@ from PIL import ImageTk, Image
 from tkinter.ttk import Frame, Button, Label, Style
 from activity import activity
 from event import event
-import os
-from graphDraw import graphDraw
+from cpm import cpmCalculate
+
 
 def new_window():
     top = Toplevel()
@@ -98,12 +98,12 @@ class Example(Frame):
         print(actDuration)
         print(actChronology)
 
-        if len(actNames) == len(actDuration) == len(actChronology):
+        #if len(actNames) == len(actDuration) == len(actChronology):
             
-            activities = []
-            for i in range(len(actNames)):
-
-                activities.append(activity(actNames[i],actDuration[i],actChronology[i]))
+        activities = []
+            #for i in range(len(actNames)):
+                #print("")
+                #activities.append(activity(actNames[i],actDuration[i],actChronology[i]))
                 # activities.append(activity('B',4,'2-3'))
                 # activities.append(activity('C',6,'2-4'))
                 # activities.append(activity('D',7,'3-5'))
@@ -113,7 +113,17 @@ class Example(Frame):
                 # activities.append(activity('H',4,'6-7'))
                 # activities.append(activity('I',1,'7-8'))
                 # activities.append(activity('J',2,'8-9'))
-            
-            graphDraw(activities)
-        else:
-            print("Wrong input")
+
+        activities.append(activity('A',3,'1-2'))
+        activities.append(activity('B',4,'2-3'))
+        activities.append(activity('C',6,'2-4'))
+        activities.append(activity('D',7,'3-5'))
+        activities.append(activity('E',1,'5-7'))
+        activities.append(activity('F',2,'4-7'))
+        activities.append(activity('G',3,'4-6'))
+        activities.append(activity('H',4,'6-7'))
+        activities.append(activity('I',1,'7-8'))
+        activities.append(activity('J',2,'8-9'))
+        cpmCalculate(activities)
+        #else:
+            #print("Wrong input")

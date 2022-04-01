@@ -16,7 +16,7 @@ def graphDraw(events):
         Lj = str(events[i].Lj)
         f.write('struct' + id + '[shape=record,label="'+ id +'|{' + t0j + '|' + t1j + '}| ' + Lj +'"')
         if(events[i].cpm == 1):
-            f.write(', color=crimson];')
+            f.write(', color=lightgreen];')
         else:
             f.write('];\n')
         for j in range(len(events[i].successors)):
@@ -25,22 +25,14 @@ def graphDraw(events):
                 f.write('color=green, ')
             f.write('label="' + str(events[i].outgoingActions[j].name) + ' ' + str(events[i].outgoingActions[j].duration) + '"];\n')
 
-# node [shape=plaintext]
-#   subgraph cluster_01 { 
-#     label = "Legenda";
-#     Zdarzenie
-#     struct [shape=record,label="ID|{t0j|t1j}| Lj"]
-#     key [label=<<table border="0" cellpadding="1" cellspacing="0" cellborder="0">
-#       <tr><td align="right" port="i1">Aktywność</td></tr>
-#       <tr><td align="right" port="i2">Ścieżka CPM</td></tr>
-#       </table>>]
-#     key2 [label=<<table border="0" cellpadding="1" cellspacing="0" cellborder="0">
-#       <tr><td port="i1">&nbsp;</td></tr>
-#       <tr><td port="i2">&nbsp;</td></tr>
-#       </table>>]
-#     key:i1:e -> key2:i1:w 
-#     key:i2:e -> key2:i2:w [color=green]
-#     f.write('\nstruct [shape=record,label="ID|{t0j|t1j}|Lj"];\n}')
+    legenda = 'node [shape=plaintext]\nsubgraph cluster_01 { \nlabel = "Legenda";\nZdarzenie\nstruct [shape=record,label="ID|{t0j|t1j}| Lj"]\n'
+    tabela = 'key [label=<<table border="0" cellpadding="1" cellspacing="0" cellborder="0">\n<tr><td align="right" port="i1">Aktywnosc</td></tr>\n<tr><td align="right" port="i2">Sciezka CPM</td></tr>\n</table>>]'
+    tabela2 = 'key2 [label=<<table border="0" cellpadding="1" cellspacing="0" cellborder="0">\n<tr><td port="i1">&nbsp;</td></tr>\n<tr><td port="i2">&nbsp;</td></tr>\n</table>>]\nkey:i1:e -> key2:i1:w\nkey:i2:e -> key2:i2:w [color=green]\n'
+    example = '\nstruct [shape=record,label="ID|{t0j|t1j}|Lj"];\n}'
+
+    f.write(legenda + tabela + tabela2 + example)
+
+    f.write("\n}")
     f.close()
     os.system("dot -Tpng graph.gv -o graph.png")
     os.system("graph.png")
@@ -112,24 +104,27 @@ def cpmCalculate(activities):
     t0jCounting(events)
     t1jCounting(events)
     LjCounting(events)
-    print("\n")
-
-    for i in events:
-        print(f'ID: {i.ID} t0j: {i.t0j}')
-
-    print("\n")
-    
-    for i in events:
-        print(f'ID: {i.ID} t1j: {i.t1j}')
-
-    print("\n")
-    
-    for i in events:
-        print(f'ID: {i.ID} t1j: {i.Lj}')
-
     cpmAlgorithm(events)
-    print("\n")
-    for i in events:
-        print(f'ID: {i.ID} cpm: {i.cpm}')
-    
     graphDraw(events)
+    
+    # print("\n")
+
+    # for i in events:
+    #     print(f'ID: {i.ID} t0j: {i.t0j}')
+
+    # print("\n")
+    
+    # for i in events:
+    #     print(f'ID: {i.ID} t1j: {i.t1j}')
+
+    # print("\n")
+    
+    # for i in events:
+    #     print(f'ID: {i.ID} t1j: {i.Lj}')
+
+    
+    # print("\n")
+    # for i in events:
+    #     print(f'ID: {i.ID} cpm: {i.cpm}')
+    
+    
