@@ -5,7 +5,7 @@ from tkinter import Tk
 def main():
 
     root = Tk()
-    root.geometry("350x300+300+300")
+    root.geometry("500x350+300+300")
     app = Example()
     root.mainloop()
 
