@@ -31,6 +31,21 @@ def graphDraw(events):
     example = '\nstruct [shape=record,label="ID|{t0j|t1j}|Lj"];\n}'
 
     f.write(legenda + tabela + tabela2 + example)
+    tcpm = 0
+    f.write('\nlabel="Ciritical path: ')
+    for i in range(len(events)):
+        if(events[i].cpm == 1 and i != len(events)-1):
+            f.write(str(events[i].ID) + ' -> ')
+            if(len(events[i].successors) == 1):
+                tcpm = tcpm + events[i].outgoingActions[0].duration
+            else:
+                for j in range(len(events[i].outgoingActions)):
+                    if(events[i].outgoingActions[j].cpm == 1):
+                        tcpm = tcpm + events[i].outgoingActions[j].duration
+        elif(i == len(events) - 1):
+            f.write(str(events[i].ID) + '\n  Critical path duration = ' + str(tcpm) + '"\n')
+    f.write('fontname="Calibri"\n')
+
 
     f.write("\n}")
     f.close()
