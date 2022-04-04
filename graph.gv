@@ -1,18 +1,8 @@
 digraph G { 
 rankdir="LR";
-struct1[shape=record,label="1|{0|0}| 0", color=lightgreen];struct1 -> struct2[color=green, label="A 3"];
-struct2[shape=record,label="2|{3|3}| 0", color=lightgreen];struct2 -> struct3[label="B 4"];
-struct2 -> struct4[color=green, label="C 6"];
-struct3[shape=record,label="3|{7|8}| 1"];
-struct3 -> struct5[label="D 7"];
-struct4[shape=record,label="4|{9|9}| 0", color=lightgreen];struct4 -> struct7[label="F 2"];
-struct4 -> struct6[color=green, label="G 3"];
-struct5[shape=record,label="5|{14|15}| 1"];
-struct5 -> struct7[label="E 1"];
-struct6[shape=record,label="6|{12|12}| 0", color=lightgreen];struct6 -> struct7[color=green, label="H 4"];
-struct7[shape=record,label="7|{16|16}| 0", color=lightgreen];struct7 -> struct8[color=green, label="I 1"];
-struct8[shape=record,label="8|{17|17}| 0", color=lightgreen];struct8 -> struct9[color=green, label="J 2"];
-struct9[shape=record,label="9|{19|19}| 0", color=lightgreen];node [shape=plaintext]
+struct1[shape=record,label="1|{0|0}| 0", color=lightgreen];struct1 -> struct2[color=green, label="A 1"];
+struct2[shape=record,label="2|{1|1}| 0", color=lightgreen];struct2 -> struct3[color=green, label="B 3"];
+struct3[shape=record,label="3|{4|4}| 0", color=lightgreen];node [shape=plaintext]
 subgraph cluster_01 { 
 label = "Legenda";
 Zdarzenie
@@ -29,8 +19,8 @@ key:i2:e -> key2:i2:w [color=green]
 
 struct [shape=record,label="ID|{t0j|t1j}|Lj"];
 }
-label="Ciritical path: 1 -> 2 -> 4 -> 6 -> 7 -> 8 -> 9
-  Critical path duration = 19"
+label="Ciritical path: 1 -> 2 -> 3
+  Critical path duration = 4"
 fontname="Calibri"
 
 }
